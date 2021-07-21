@@ -9,6 +9,9 @@ import { nanoid } from "nanoid";
 const socket = io("http://localhost:5000");
 // docu: const socket = io("https://server-domain.com")
 
+// applying nanoid for users
+const username = nanoid(4);
+
 const App = () => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);
@@ -20,7 +23,7 @@ const App = () => {
      * this event will be same as we defined in the backend
      * which is chat
      */
-    socket.emit("chat", { message });
+    socket.emit("chat", { message, username });
     // resetting the message value
     setMessage("");
   };
@@ -39,7 +42,9 @@ const App = () => {
         <h2>Chat App</h2>
 
         {chat.map((payload, index) => (
-          <p key={index}> {payload.message} </p>
+          <p key={index}>
+            {payload.message} : by <span>id: {payload.username}</span>
+          </p>
         ))}
 
         <form onSubmit={sendChat}>
