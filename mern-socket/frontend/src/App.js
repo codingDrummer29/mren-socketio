@@ -9,7 +9,7 @@ import { nanoid } from "nanoid";
 const socket = io("http://localhost:5000");
 // docu: const socket = io("https://server-domain.com")
 
-// applying nanoid for users
+// applying nanoid for users read details from npm nanoid official docs
 const username = nanoid(4);
 
 const App = () => {
