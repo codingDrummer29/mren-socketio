@@ -25,10 +25,23 @@ const App = () => {
     setMessage("");
   };
 
+  // emmiting evend done, broadcast back required
+  useEffect(() => {
+    socket.on("chat", (payload) => {
+      setChat([...chat, payload]);
+    });
+  });
+  // we are not listing to the state-var message, we are listing to the io event on the server here
+
   return (
     <div className="App">
       <header className="App-header">
         <h2>Chat App</h2>
+
+        {chat.map((payload, index) => (
+          <p key={index}> {payload.message} </p>
+        ))}
+
         <form onSubmit={sendChat}>
           <input
             type="text"
