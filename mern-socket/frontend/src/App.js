@@ -13,11 +13,23 @@ const App = () => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);
 
+  const sendChat = (e) => {
+    e.preventDefault(); // so that form doesn't submit by itself
+    /**
+     * make sure that as soon as we recieve a chat we need to emit an event
+     * this event will be same as we defined in the backend
+     * which is chat
+     */
+    socket.emit("chat", { message });
+    // resetting the message value
+    setMessage("");
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <h2>Chat App</h2>
-        <form action="">
+        <form onSubmit={sendChat}>
           <input
             type="text"
             name="chat"
